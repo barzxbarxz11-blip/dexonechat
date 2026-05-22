@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Daftar - Private Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="chat-icon">💬</div>
+        <h1>Daftar Akun</h1>
+        <p>Buat akun baru gratis</p>
+      </div>
+      
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="username" placeholder="Username" required autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required>
+        </div>
+        
+        <div class="input-group">
+          <input type="password" id="confirmPassword" placeholder="Konfirmasi Password" required>
+        </div>
+        
+        <button type="submit" class="btn-primary">DAFTAR</button>
+      </form>
+      
+      <div class="auth-footer">
+        Sudah punya akun? <a href="login.html">Login</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirm) {
+        alert('Password tidak cocok!');
+        return;
+      }
+      
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      
+      const data = await res.json();
+      
+      if (data.success) {
+        alert('Registrasi berhasil! Silakan login.');
+        window.location.href = 'login.html';
+      } else {
+        alert(data.error);
+      }
+    });
+  </script>
+</body>
+</html>

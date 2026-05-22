@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Private Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+  <div class="chat-app">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="user-info">
+          <div class="avatar" id="userAvatar"></div>
+          <div class="user-details">
+            <span id="currentUsername"></span>
+          </div>
+        </div>
+        <button class="close-sidebar" onclick="toggleSidebar()">✕</button>
+      </div>
+      
+      <div class="search-box">
+        <input type="text" id="searchUser" placeholder="🔍 Cari kontak...">
+      </div>
+      
+      <div class="users-list" id="usersList">
+        <!-- Daftar user akan diisi JS -->
+      </div>
+      
+      <div class="sidebar-footer">
+        <button onclick="logout()" class="logout-btn">🚪 Logout</button>
+      </div>
+    </div>
+    
+    <!-- Main Chat Area -->
+    <div class="main-chat">
+      <div class="chat-header">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <div class="chat-user-info" id="chatUserInfo">
+          <div class="chat-avatar" id="chatAvatar"></div>
+          <div>
+            <div class="chat-username" id="chatUsername">Pilih chat</div>
+            <div class="chat-status" id="chatStatus">-</div>
+          </div>
+        </div>
+        <div class="chat-actions">
+          <button class="action-btn" id="menuChatBtn">⋮</button>
+        </div>
+      </div>
+      
+      <!-- Chat Messages -->
+      <div class="messages-container" id="messagesContainer">
+        <div class="no-chat-selected">
+          💬 Pilih chat untuk mulai ngobrol
+        </div>
+      </div>
+      
+      <!-- Chat Input -->
+      <div class="chat-input-container" id="chatInputContainer" style="display: none;">
+        <div class="typing-indicator" id="typingIndicator"></div>
+        <div class="input-wrapper">
+          <button class="emoji-btn" id="emojiBtn">😊</button>
+          <input type="text" id="messageInput" placeholder="Ketik pesan..." autocomplete="off">
+          <button class="attach-btn" id="attachBtn">📎</button>
+          <button class="send-btn" id="sendBtn">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Emoji Picker -->
+  <div class="emoji-picker" id="emojiPicker" style="display: none;"></div>
+  
+  <!-- Chat Menu Modal -->
+  <div class="modal" id="chatMenuModal" style="display: none;">
+    <div class="modal-content">
+      <button onclick="deleteChat()" class="modal-btn danger">🗑️ Hapus Chat</button>
+      <button onclick="blockUser()" class="modal-btn danger" id="blockBtn">🚫 Blokir User</button>
+      <button onclick="closeModal()" class="modal-btn">❌ Batal</button>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
